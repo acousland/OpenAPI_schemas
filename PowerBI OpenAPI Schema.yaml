@@ -1,0 +1,81 @@
+https://learn.microsoft.com/en-us/rest/api/power-bi/datasets/execute-queries
+
+
+
+
+openapi: 3.1.0
+info:
+  title: Power BI API
+  description: API for interacting with Power BI datasets.
+  version: 1.0.0
+servers:
+  - url: https://api.powerbi.com/v1.0/myorg
+    description: Power BI API server
+paths:
+  /datasets:
+    get:
+      operationId: getDatasets
+      summary: Retrieve a list of datasets
+      description: Retrieves a list of datasets from the Power BI service.
+      responses:
+        '200':
+          description: A list of datasets
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  value:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        name:
+                          type: string
+                        addRowsAPIEnabled:
+                          type: boolean
+    post:
+      operationId: createDataset
+      summary: Create a new dataset
+      description: Creates a new dataset in the Power BI service.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                tables:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                      columns:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            name:
+                              type: string
+                            dataType:
+                              type: string
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  name:
+                    type: string
+                  addRowsAPIEnabled:
+                    type: boolean
